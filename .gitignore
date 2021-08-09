@@ -21,6 +21,7 @@
 *.la
 *.a
 *.lib
+!dependencies/freetype/*.lib
 
 # Python cache files
 __pycache__/
