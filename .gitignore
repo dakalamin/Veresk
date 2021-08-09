@@ -16,17 +16,39 @@
 *.dylib
 *.dll
 
-# Fortran module files
-*.mod
-*.smod
-
 # Compiled Static libraries
 *.lai
 *.la
 *.a
 *.lib
 
-# Executables
+# Python cache files
+__pycache__/
+*.pyc
+
+# Log files
+*.log
+
+# .bat scripts (except project maintenance related)
+*.bat
+!build_solution.bat
+!clean_solution.bat
+
+# Binaries & Executables
+bin/
+bin_inter/
+build/
 *.exe
 *.out
 *.app
+
+# Visual Studio folders & files 
+.vs/
+**.sln
+**.vcxproj
+**.vcxproj.filters
+**.vcxproj.user
+
+# Miscellaneous
+vendor/premake
+assets/logos

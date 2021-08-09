@@ -1,0 +1,9 @@
+[submodule "dependencies/glm"]
+	path = dependencies/glm
+	url = https://github.com/g-truc/glm
+[submodule "dependencies/glfw"]
+	path = dependencies/glfw
+	url = https://github.com/glfw/glfw
+[submodule "dependencies/imgui_vesk"]
+	path = dependencies/imgui_vesk
+	url = https://github.com/dakalamin/imgui_vesk
