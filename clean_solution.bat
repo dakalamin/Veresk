@@ -36,8 +36,7 @@ goto exit
 
 
 :exit
-echo.
-pause
+echo. && pause
 
 ::returns cmd to original location
 ::if the script was called not from its own one
