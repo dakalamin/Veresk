@@ -24,12 +24,7 @@ goto start
 
 :yes
 echo.
-::FFs - File Formats
-set  ffstodel=(".sln" ".vcxproj" ".vcxproj.filters" ".vcxproj.user")
-set dirstodel=("bin" "bin_inter" "build" ".vs")
-
-for %%i in %ffstodel%  do   del /s /q "**%%i"
-for %%i in %dirstodel% do rmdir /s /q "%%i"
+call python scripts/setup.py -clean
 goto exit
 
 

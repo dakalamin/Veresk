@@ -32,7 +32,7 @@ g_assets = {
 }
 
 
-def parse_releases(rep_api_link):
+def _parse_releases(rep_api_link):
     # using cURL from cmd to get information on releases available on GitHub via GitHubAPI
     # https://docs.github.com/en/rest/reference/repos#list-releases
     cmnd = f'curl "Accept: application/vnd.github.v3+json" {rep_api_link}'
@@ -54,7 +54,7 @@ def parse_releases(rep_api_link):
         raise error
     
 
-def check_release(release_json):
+def _check_release(release_json):
     # presence of 'asset' segment indicates there are available releases
     # opposed to just 'message' and 'documentation_url' segments
     if 'assets' in release_json:
@@ -66,7 +66,7 @@ def check_release(release_json):
     return False
 
 
-def install_premake(version, asset_link):
+def _install_premake(version, asset_link):
     print(f"Downloading {g_name}...")
     print(asset_link)
 
@@ -118,29 +118,42 @@ def default():
 
 
 def force():
+    """
+    FORCED UPDATE:
+    tries to download & install latest Premake release;
+    if failed, raises Exception
+    """
+
     # checking the latest release specifically
     # https://docs.github.com/rest/reference/repos#get-the-latest-release
-    latest_rel  = parse_releases(f'{g_releases_link}/latest')
-    latest_data = check_release(latest_rel)
+    latest_rel  = _parse_releases(f'{g_releases_link}/latest')
+    latest_data = _check_release(latest_rel)
 
     # if no release specified as 'latest' found, latest_data occurs to be a tuple('','')
     # which converts to False as bool(...)
     if latest_data:
-        return install_premake(*latest_data)
+        return _install_premake(*latest_data)
 
     print("No appropriate latest release found, searching for all available releases...")
-    all_rels = parse_releases(g_releases_link)
+    all_rels = _parse_releases(g_releases_link)
 
     for release in all_rels:
-        data = check_release(release)
+        data = _check_release(release)
         if data:
-            return install_premake(*data) 
+            return _install_premake(*data) 
     else:
         raise Exception(f"No appropriate releases found, unable to download {g_name}")
 
 
 def update():
-    # quite similar to force(), but also checking if anything already exists
+    """
+    USUAL UPDATE:
+    tries to download & install new latest Premake release
+    if no information found on previously installed versions or
+    if failed, raises Exception
+    """
+
+    # quite similar to fupdate(), but also checking if anything already exists
     # and comparing versions of premake5 in local directory and found on GitHub
     if not Path(g_path).exists():
         errmsg = f"No {g_name} file found, download it with -default or -force options first or do it manually!"
@@ -153,26 +166,26 @@ def update():
     with open(g_ver, 'r') as file:
         version = file.read().rstrip('\n')
 
-    latest_rel  = parse_releases(f'{g_releases_link}/latest')
-    latest_data = check_release(latest_rel)
+    latest_rel  = _parse_releases(f'{g_releases_link}/latest')
+    latest_data = _check_release(latest_rel)
 
     if latest_data:
         # turns out python deals with comparing versions represented as strings really well
         # (tested on several examples in the style 'premake' does on GitHub)
         if version < latest_data[0]:
-            install_premake(*latest_data)
+            _install_premake(*latest_data)
         else:
             print(f"Latest version of {g_name} is already downloaded")
         return
 
     print("No appropriate latest release found, searching for all available releases...")
-    all_rels = parse_releases(g_releases_link)
+    all_rels = _parse_releases(g_releases_link)
 
     for release in all_rels:
-        data = check_release(release)
+        data = _check_release(release)
         if data:
             if version < data[0]:
-                install_premake(*data)
+                _install_premake(*data)
             else:
                 print(f"Latest version of {g_name} is already installed")
             return
