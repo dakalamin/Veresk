@@ -16,7 +16,7 @@ workspace "Veresk"
 	local incdir   = root .. "include"
 	local depsdir  = root .. "dependencies"
 
-	local builddir = root .. "\\BUILD\\" .. outputdir
+	local builddir = "%{wks.location}\\build\\" .. outputdir
 
 
 	-- Virtual folder to contain several projects
@@ -88,9 +88,9 @@ workspace "Veresk"
 
 
 		postbuildcommands {
-			"xcopy /y /i /q /d %{wks.location}\\bin\\%{outputdir}\\*.exe " .. builddir,
-			"xcopy /y /i /q /d %{wks.location}\\*.ini "                    .. builddir,
-			"xcopy /y /i /q /d %{wks.location}\\assets\\* "                .. builddir
+			"xcopy /y /i /q /d    %{wks.location}\\bin\\%{outputdir}\\*.exe " .. builddir,
+			"xcopy /y /i /q /d    %{wks.location}\\*.ini "                    .. builddir,
+			"xcopy /y /i /q /d /e %{wks.location}\\assets\\* "                .. builddir .. "\\assets"
 		}
 
 
