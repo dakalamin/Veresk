@@ -195,10 +195,10 @@ def update():
 
 def help(part):
     if part == 1:
-        print( "-default\t:" + f" downloads {g_name} if not found in {g_dir}")
-        print("-update\t\t:" + f" checks if latest version of {g_name} is installed")
-        print(       "\t\t " + f" if not, downloads it")
-        print( "-force\t\t:" + f" downloads {g_name} rewriting anything found in {g_dir}")
+        print( "--default\t:" + f" downloads {g_name} if not found in {g_dir}")
+        print("--update\t\t:" + f" checks if latest version of {g_name} is installed")
+        print(        "\t\t " + f" if not, downloads it")
+        print( "--force\t\t:" + f" downloads {g_name} rewriting anything found in {g_dir}")
         
     elif part == 2:
         print(f"If something goes wrong in PREMAKE section, try installing {g_name} manually from...")

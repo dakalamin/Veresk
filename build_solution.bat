@@ -2,7 +2,7 @@
 ::makes calling this script possible from any location
 pushd %~dp0
 
-call python scripts/setup.py -default
+call python scripts/setup.py --default
 echo. && pause
 
 ::returns cmd to original location

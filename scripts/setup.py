@@ -12,8 +12,8 @@ def script_help():
     print("Only one or no arguments is expected, otherwise Exception is raised")
     print("Options and arguments:")
     premake.help(1)
-    print("-clean")
-    print("-help\t\t:" + " output reference information")
+    print("--clean")
+    print("--help\t\t:" + " output reference information")
     print("If no option or argument is specified, behaves like -default is passed\n")
 
     print("All debug information is provided during script runtime")
@@ -23,11 +23,11 @@ def script_help():
 
 g_projname = 'Veresk'
 g_options  = {
-    '-default' : (premake.default, True),
-    '-update'  : (premake.update,  True),
-    '-force'   : (premake.force,   True),
-    '-clean'   : (solution.clean, False),
-    '-help'    : (script_help,    False)
+    '--default' : (premake.default, True),
+    '--update'  : (premake.update,  True),
+    '--force'   : (premake.force,   True),
+    '--clean'   : (solution.clean, False),
+    '--help'    : (script_help,    False)
 }
     
 

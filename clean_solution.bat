@@ -24,7 +24,7 @@ goto start
 
 :yes
 echo.
-call python scripts/setup.py -clean
+call python scripts/setup.py --clean
 goto exit
 
 
