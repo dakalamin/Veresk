@@ -9,21 +9,27 @@ from premake import g_path as premake_path
 from pathlib import Path
 
 
+g_vs_version = 'vs2019'
+g_deps_dir   = 'dependencies'
+
+
 def build():
-    '''
+    """
     BUILD SOLUTION FILES FOR VS2019
-    '''
+    """
+    
     print(f"\nRunning {premake_name}...")
     # running a cmd command like '[path_to_premake.exe]/premake5 vs2019'
     # that runs the lua script in project root dir
     # prebuilding it for Visual Studio 2019
-    subproc.run((premake_path, 'vs2019'))
+    subproc.run((premake_path, g_vs_version))
 
 
 def _rm_df(cwd):
-    '''
+    """
     REMOVE DIRS&FILES
-    '''
+    """
+    
     smth_deleted = False
     
     fstodel = ('*.sln', '*.vcxproj*')        # files to delete
@@ -45,27 +51,29 @@ def _rm_df(cwd):
 
 
 def clean():
-    '''
+    """
     DELETE ALL SOLUTION RELATED DIRS&FILES
     also cleans all dependent subproject folders
-    '''
-    deps_dir = 'dependencies'
-
+    """
+    
     # CWD - current working directory
     cwd = Path(os.getcwd())
-    smth_deleted = False
+    smth_deleted = 0
     
     smth_deleted += _rm_df(cwd)
-    cwd = cwd.joinpath(deps_dir)
-    if not cwd.exists():
-        raise Exception("DEPENDENCIES folder cannot be found!")
-
-    for folder in os.scandir(cwd):
-        if folder.is_dir():
-            smth_deleted += _rm_df(Path(folder))
+    cwd = cwd.joinpath(g_deps_dir)
+    if cwd.exists():
+        for folder in os.scandir(cwd):
+            if folder.is_dir():
+                smth_deleted += _rm_df(Path(folder))
+    else:
+        print(f"DEPENDENCIES folder cannot be found")
+        print(f"Please, check deps_dir value in {__file__}")
+        print(f"(now it's <{g_deps_dir}\\>) so it matches")
+        print(f"the folder that contains all project dependencies")
 
     if not smth_deleted:
-        print("No dirs/files deleted - solution is already cleaned")
+        print("\nNo dirs/files deleted - solution is already cleaned")
 
 
 if __name__ == "__main__":
