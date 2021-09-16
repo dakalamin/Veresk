@@ -39,12 +39,11 @@
 
 		"postbuild_dir" : "build",
 
-		"fs_tocopy"  : ["{bin_dir}/{outputdir}/*.exe", "*.ini"],  // files to copy postbuild
-		"ds_tocopy"  : ["assets"],                                // directories to copy postbuild
+		"fs_tocopy"  : ["{bin_dir}/{outputdir}/*.exe", "*.ini"],
+		"ds_tocopy"  : ["assets"],
 
-		// deletion happens only in {Setup.project_name}/...
-		"fs_todel"   : ["*.sln", "*.vcxproj*"],                          // files to delete
-		"ds_todel"   : ["{bin_dir}", "{binint_dir}", "{postbuild_dir}"]  // directories to delete
+		"fs_todel"   : ["*.sln", "*.vcxproj*"],
+		"ds_todel"   : ["{bin_dir}", "{binint_dir}", "{postbuild_dir}"]
 	},
 
 
@@ -55,7 +54,7 @@
 		"directory" : "vendor/premake",
 		"version"   : "{directory}/VERSION",
 		"license"   : "{directory}/LICENSE",
-		"path"      : "{directory}/premake5",  // DON'T FORGET TO ADD extension[sys.platform]
+		"path"      : "{directory}/premake5",
 
 		"extension" :
 		{
